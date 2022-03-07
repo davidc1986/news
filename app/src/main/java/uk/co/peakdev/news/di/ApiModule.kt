@@ -10,9 +10,9 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 import uk.co.peakdev.news.data.api.NewsApi
 import javax.inject.Singleton
 
-@InstallIn(SingletonComponent::class)
 @Module
-class ApiModule {
+@InstallIn(SingletonComponent::class)
+object ApiModule {
 
     @Provides
     @Singleton
