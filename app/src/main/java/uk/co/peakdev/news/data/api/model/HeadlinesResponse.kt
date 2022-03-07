@@ -1,11 +1,11 @@
 package uk.co.peakdev.news.data.api.model
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
 
 data class HeadlinesResponse(
     val status: String,
-    @SerializedName("code") val errorCode: String?,
-    @SerializedName("message") val errorMessage: String?,
+    @Json(name = "code") val errorCode: String?,
+    @Json(name = "message") val errorMessage: String?,
     val totalResults: Int,
     val articles: List<Article>
     ) {
@@ -16,7 +16,7 @@ data class HeadlinesResponse(
         val title: String,
         val description: String,
         val url: String,
-        @SerializedName("urlToImage") val imageUrl: String,
+        @Json(name = "urlToImage") val imageUrl: String,
         val publishedAt: String,
         val content: String?
     ) {
