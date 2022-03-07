@@ -1,4 +1,4 @@
-package uk.co.peakdev.news.data
+package uk.co.peakdev.news.data.api.model
 
 import com.google.gson.annotations.SerializedName
 

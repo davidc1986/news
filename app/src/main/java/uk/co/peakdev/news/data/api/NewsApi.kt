@@ -1,8 +1,9 @@
-package uk.co.peakdev.news.data
+package uk.co.peakdev.news.data.api
 
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Headers
+import uk.co.peakdev.news.data.api.model.HeadlinesResponse
 
 interface NewsApi {
 

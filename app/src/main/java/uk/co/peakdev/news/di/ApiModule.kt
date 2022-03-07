@@ -7,7 +7,7 @@ import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
-import uk.co.peakdev.news.data.NewsApi
+import uk.co.peakdev.news.data.api.NewsApi
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)

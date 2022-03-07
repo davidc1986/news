@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import uk.co.peakdev.news.data.NewsApi
+import uk.co.peakdev.news.data.api.NewsApi
 import javax.inject.Inject
 
 @HiltViewModel
