@@ -5,8 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import uk.co.peakdev.news.Result
 import uk.co.peakdev.news.data.repo.NewsRepo
-import uk.co.peakdev.news.domain.NewsResult
 import javax.inject.Inject
 
 @HiltViewModel
@@ -17,7 +17,7 @@ class NewsViewModel @Inject constructor(
     fun onViewCreated() {
         viewModelScope.launch {
             when (newsRepo.fetchHeadlines()) {
-                is NewsResult.Success -> {
+                is Result.Success -> {
                     Log.d("Blah", "blah")
                 }
                 else -> {

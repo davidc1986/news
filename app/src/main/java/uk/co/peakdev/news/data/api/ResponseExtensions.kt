@@ -1,14 +1,14 @@
 package uk.co.peakdev.news.data.api
 
 import retrofit2.Response
-import uk.co.peakdev.news.domain.NewsResult
+import uk.co.peakdev.news.Result
 
-fun <T: Any> Response<out T>.mapToResult(): NewsResult<T> {
+fun <T: Any> Response<out T>.mapToResult(): Result<T> {
     if (isSuccessful) {
         body()?.let {
-            return NewsResult.Success(it)
+            return Result.Success(it)
         }
     }
 
-    return NewsResult.Error()
+    return Result.Error()
 }
