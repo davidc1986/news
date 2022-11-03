@@ -3,7 +3,7 @@ package uk.co.peakdev.news.data.api.model
 import com.squareup.moshi.Json
 
 data class HeadlinesResponse(
-    val status: String,
+    val status: Status,
     @Json(name = "code") val errorCode: String?,
     @Json(name = "message") val errorMessage: String?,
     val totalResults: Int,
