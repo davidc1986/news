@@ -1,27 +1,33 @@
 package uk.co.peakdev.news.ui
 
 import android.os.Bundle
-import android.util.Log
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
+import androidx.compose.ui.Modifier
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
-import uk.co.peakdev.news.R
+import uk.co.peakdev.news.ui.theme.NewsTheme
 
 @AndroidEntryPoint
-class NewsActivity: AppCompatActivity() {
-
-    private val viewModel: NewsViewModel by viewModels()
+class NewsActivity: ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_launch)
+        setContent {
+            NewsTheme {
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colors.background
+                ) {
+                    NewsScreen()
+                }
+            }
+        }
 
-        lifecycleScope.launch {
+        /*lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect { state ->
                     when (state) {
@@ -40,7 +46,7 @@ class NewsActivity: AppCompatActivity() {
                     }
                 }
             }
-        }
+        }*/
     }
 
 }
