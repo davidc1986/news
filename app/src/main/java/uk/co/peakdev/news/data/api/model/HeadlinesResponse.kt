@@ -14,7 +14,7 @@ data class HeadlinesResponse(
         val source: Source,
         val author: String?,
         val title: String,
-        val description: String,
+        val description: String?,
         val url: String,
         @Json(name = "urlToImage") val imageUrl: String,
         val publishedAt: String,

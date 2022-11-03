@@ -26,27 +26,5 @@ class NewsActivity: ComponentActivity() {
                 }
             }
         }
-
-        /*lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.uiState.collect { state ->
-                    when (state) {
-                        is NewsUiState.Initial -> {
-                            Log.d("Blah", "blah")
-                        }
-                        is NewsUiState.Loading -> {
-                            Log.d("Blah", "blah")
-                        }
-                        is NewsUiState.News -> {
-                            Log.d("Blah", "blah")
-                        }
-                        is NewsUiState.Error -> {
-                            Log.d("Blah", "blah")
-                        }
-                    }
-                }
-            }
-        }*/
     }
-
 }

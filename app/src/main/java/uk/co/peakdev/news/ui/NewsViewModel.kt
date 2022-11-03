@@ -9,6 +9,7 @@ import kotlinx.coroutines.launch
 import uk.co.peakdev.news.data.Result
 import uk.co.peakdev.news.data.api.model.Status
 import uk.co.peakdev.news.data.repo.NewsRepo
+import uk.co.peakdev.news.ui.model.Headline
 import javax.inject.Inject
 
 @HiltViewModel
@@ -28,7 +29,14 @@ class NewsViewModel @Inject constructor(
                     }
                     is Result.Success -> {
                         if (result.value.status == Status.OK) {
-                            _uiState.value = NewsUiState.News
+                            val headlines = result.value.articles.map { article ->
+                                Headline(
+                                    author = article.author,
+                                    title = article.title,
+                                    description = article.description
+                                )
+                            }
+                            _uiState.value = NewsUiState.Headlines(headlines)
                         } else {
                             _uiState.value = NewsUiState.Error
                         }
