@@ -4,7 +4,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -12,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import uk.co.peakdev.news.ui.model.Headline
@@ -55,8 +57,9 @@ fun Headlines(
     modifier: Modifier = Modifier
 ) {
     LazyColumn(modifier) {
-        items(headlines) { headline ->
-            HeadlineItem(headline)
+        itemsIndexed(headlines) { index, headline ->
+            // Todo - add padding/margin (incl divider)
+            HeadlineItem(headline, index == headlines.size - 1)
         }
     }
 }
@@ -64,6 +67,7 @@ fun Headlines(
 @Composable
 fun HeadlineItem(
     headline: Headline,
+    isLast: Boolean,
     modifier: Modifier = Modifier
 ) {
     Column(modifier) {
@@ -73,6 +77,9 @@ fun HeadlineItem(
         Text(text = headline.title)
         headline.description?.let {
             Text(text = it)
+        }
+        if (!isLast) {
+            Divider(color = Color.Black)
         }
     }
 }
