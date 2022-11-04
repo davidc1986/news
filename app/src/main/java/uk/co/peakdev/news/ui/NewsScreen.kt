@@ -1,5 +1,6 @@
 package uk.co.peakdev.news.ui
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
@@ -19,29 +20,31 @@ import uk.co.peakdev.news.ui.theme.NewsTheme
 @Composable
 fun NewsScreen(
     viewModel: NewsViewModel = viewModel(),
-    modifier: Modifier = Modifier // Todo - required???
+    modifier: Modifier = Modifier
 ) {
     val uiState by viewModel.uiState.collectAsState()
-    NewsView(uiState)
+    NewsView(uiState, modifier)
 }
 
 @Composable
 fun NewsView(
     uiState: NewsUiState,
-    modifier: Modifier = Modifier // Todo - required???
+    modifier: Modifier = Modifier
 ) {
-    when (uiState) {
-        is NewsUiState.Initial -> {
-            Text(text = "Initial")
-        }
-        is NewsUiState.Loading -> {
-            Text(text = "Loading")
-        }
-        is NewsUiState.Headlines -> {
-            Headlines(uiState.headlines)
-        }
-        is NewsUiState.Error -> {
-            Text(text = "Error")
+    Box(modifier) {
+        when (uiState) {
+            is NewsUiState.Initial -> {
+                Text(text = "Initial")
+            }
+            is NewsUiState.Loading -> {
+                Text(text = "Loading")
+            }
+            is NewsUiState.Headlines -> {
+                Headlines(uiState.headlines)
+            }
+            is NewsUiState.Error -> {
+                Text(text = "Error")
+            }
         }
     }
 }
@@ -49,7 +52,7 @@ fun NewsView(
 @Composable
 fun Headlines(
     headlines: List<Headline>,
-    modifier: Modifier = Modifier // Todo - required???
+    modifier: Modifier = Modifier
 ) {
     LazyColumn(modifier) {
         items(headlines) { headline ->
@@ -61,11 +64,9 @@ fun Headlines(
 @Composable
 fun HeadlineItem(
     headline: Headline,
-    modifier: Modifier = Modifier // Todo - required???
+    modifier: Modifier = Modifier
 ) {
-    Column(
-        modifier = modifier
-    ) {
+    Column(modifier) {
         headline.author?.let {
             Text(text = it)
         }
@@ -76,7 +77,7 @@ fun HeadlineItem(
     }
 }
 
-@Preview
+@Preview (name = "Headlines")
 @Composable
 fun PreviewHeadlines() {
     NewsTheme {
@@ -84,20 +85,48 @@ fun PreviewHeadlines() {
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colors.background
         ) {
-            Headlines(
-                listOf(
-                    Headline(
-                        author = "Author",
-                        title = "Title 1",
-                        description = "Description 1"
-                    ),
-                    Headline(
-                        author = null,
-                        title = "Title 2",
-                        description = "Description 2"
-                    ),
+            NewsView(
+                NewsUiState.Headlines(
+                    listOf(
+                        Headline(
+                            author = "Author",
+                            title = "Title 1",
+                            description = "Description 1"
+                        ),
+                        Headline(
+                            author = null,
+                            title = "Title 2",
+                            description = "Description 2"
+                        ),
+                    )
                 )
             )
+        }
+    }
+}
+
+@Preview (name = "Loading")
+@Composable
+fun PreviewLoading() {
+    NewsTheme {
+        Surface(
+            modifier = Modifier.fillMaxSize(),
+            color = MaterialTheme.colors.background
+        ) {
+            NewsView(NewsUiState.Loading)
+        }
+    }
+}
+
+@Preview (name = "Error")
+@Composable
+fun PreviewError() {
+    NewsTheme {
+        Surface(
+            modifier = Modifier.fillMaxSize(),
+            color = MaterialTheme.colors.background
+        ) {
+            NewsView(NewsUiState.Error)
         }
     }
 }
