@@ -71,13 +71,7 @@ fun HeadlineItem(
     modifier: Modifier = Modifier
 ) {
     Column(modifier) {
-        headline.author?.let {
-            Text(text = it)
-        }
         Text(text = headline.title)
-        headline.description?.let {
-            Text(text = it)
-        }
         if (!isLast) {
             Divider(color = Color.Black)
         }
@@ -96,14 +90,10 @@ fun PreviewHeadlines() {
                 NewsUiState.Headlines(
                     listOf(
                         Headline(
-                            author = "Author",
-                            title = "Title 1",
-                            description = "Description 1"
+                            title = "Title 1"
                         ),
                         Headline(
-                            author = null,
-                            title = "Title 2",
-                            description = "Description 2"
+                            title = "Title 2"
                         ),
                     )
                 )

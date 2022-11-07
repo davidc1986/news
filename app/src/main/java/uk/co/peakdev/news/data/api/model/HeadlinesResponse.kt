@@ -22,7 +22,7 @@ data class HeadlinesResponse(
     ) {
 
         data class Source(
-            val name: String
+             val Name: String
         )
 
     }

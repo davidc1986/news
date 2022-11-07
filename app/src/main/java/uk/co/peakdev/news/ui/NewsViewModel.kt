@@ -31,9 +31,7 @@ class NewsViewModel @Inject constructor(
                         if (result.value.status == Status.OK) {
                             val headlines = result.value.articles.map { article ->
                                 Headline(
-                                    author = article.author,
-                                    title = article.title,
-                                    description = article.description
+                                    title = article.title
                                 )
                             }
                             _uiState.value = NewsUiState.Headlines(headlines)
