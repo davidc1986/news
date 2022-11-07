@@ -7,7 +7,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import uk.co.peakdev.news.data.Result
-import uk.co.peakdev.news.data.api.model.Status
 import uk.co.peakdev.news.data.repo.NewsRepo
 import uk.co.peakdev.news.ui.model.Headline
 import javax.inject.Inject
@@ -28,16 +27,16 @@ class NewsViewModel @Inject constructor(
                         _uiState.value = NewsUiState.Loading
                     }
                     is Result.Success -> {
-                        if (result.value.status == Status.OK) {
-                            val headlines = result.value.articles.map { article ->
-                                Headline(
-                                    title = article.title
-                                )
-                            }
-                            _uiState.value = NewsUiState.Headlines(headlines)
-                        } else {
-                            _uiState.value = NewsUiState.Error
+                        val headlines = result.value.articles.map { article ->
+                            Headline(
+                                source = article.source,
+                                date = article.publishedAt,
+                                title = article.title,
+                                description = article.description,
+                                author = article.author
+                            )
                         }
+                        _uiState.value = NewsUiState.Headlines(headlines)
                     }
                     is Result.Error -> {
                         _uiState.value = NewsUiState.Error

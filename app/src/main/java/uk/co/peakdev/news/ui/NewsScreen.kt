@@ -71,7 +71,13 @@ fun HeadlineItem(
     modifier: Modifier = Modifier
 ) {
     Column(modifier) {
+        Text(text = headline.source)
+        Text(text = headline.date)
         Text(text = headline.title)
+        Text(text = headline.description)
+        headline.author?.let { author ->
+            Text(text = author)
+        }
         if (!isLast) {
             Divider(color = Color.Black)
         }
@@ -90,10 +96,18 @@ fun PreviewHeadlines() {
                 NewsUiState.Headlines(
                     listOf(
                         Headline(
-                            title = "Title 1"
+                            source = "Source 1",
+                            date = "Date 1",
+                            title = "Title 1",
+                            description = "Description 1",
+                            author = "Author 1"
                         ),
                         Headline(
-                            title = "Title 2"
+                            source = "Source 2",
+                            date = "Date 2",
+                            title = "Title 2",
+                            description = "Description 2",
+                            author = "Author 2"
                         ),
                     )
                 )
