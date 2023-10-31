@@ -3,16 +3,8 @@ package uk.co.peakdev.news.data.api.model
 import com.squareup.moshi.Json
 
 data class NewsResponse(
-    val pagination: Pagination,
     @field:Json(name = "data") val articles: List<Article>
     ) {
-
-    data class Pagination(
-        val limit: Int,
-        val offset: Int,
-        val count: Int,
-        val total: Int
-    )
 
     data class Article(
         val author: String?,

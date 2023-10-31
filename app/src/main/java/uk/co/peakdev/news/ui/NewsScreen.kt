@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -35,9 +36,6 @@ fun NewsView(
 ) {
     Box(modifier) {
         when (uiState) {
-            is NewsUiState.Initial -> {
-                Text(text = "Initial")
-            }
             is NewsUiState.Loading -> {
                 Text(text = "Loading")
             }
@@ -56,10 +54,15 @@ fun Headlines(
     headlines: List<Headline>,
     modifier: Modifier = Modifier
 ) {
-    LazyColumn(modifier) {
+    val listState = rememberLazyListState()
+
+    LazyColumn(
+        modifier = modifier,
+        state = listState
+    ) {
         itemsIndexed(headlines) { index, headline ->
-            // Todo - add padding/margin (incl divider)
-            HeadlineItem(headline, index == headlines.size - 1)
+            // Todo - add padding/margin
+            HeadlineItem(headline, index == headlines.lastIndex)
         }
     }
 }

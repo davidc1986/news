@@ -16,32 +16,26 @@ class NewsViewModel @Inject constructor(
     private val newsRepo: NewsRepo
 ): ViewModel() {
 
-    private val _uiState: MutableStateFlow<NewsUiState> = MutableStateFlow(NewsUiState.Initial)
+    private val _uiState: MutableStateFlow<NewsUiState> = MutableStateFlow(NewsUiState.Loading)
     val uiState: StateFlow<NewsUiState> = _uiState
 
     init {
         viewModelScope.launch {
-            newsRepo.headlines.collect { result ->
-                when (result) {
-                    is Result.Loading -> {
-                        _uiState.value = NewsUiState.Loading
+            when (val result = newsRepo.fetchHeadlines()) {
+                is Result.Success -> {
+                    val headlines = result.value.articles.map { article ->
+                        Headline(
+                            source = article.source,
+                            date = article.publishedAt,
+                            title = article.title,
+                            description = article.description,
+                            author = article.author
+                        )
                     }
-                    is Result.Success -> {
-                        val headlines = result.value.articles.map { article ->
-                            Headline(
-                                source = article.source,
-                                date = article.publishedAt,
-                                title = article.title,
-                                description = article.description,
-                                author = article.author
-                            )
-                        }
-                        _uiState.value = NewsUiState.Headlines(headlines)
-                    }
-                    is Result.Error -> {
-                        _uiState.value = NewsUiState.Error
-                    }
+                    _uiState.value = NewsUiState.Headlines(headlines)
+
                 }
+                is Result.Error -> _uiState.value = NewsUiState.Error
             }
         }
     }
